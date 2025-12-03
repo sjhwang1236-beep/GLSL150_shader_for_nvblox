@@ -12,6 +12,11 @@
 # Installation Location
 - Place 4 files at `/opt/ros/humble/share/rviz_rendering/ogre_media/materials/glsl150` in the container.
 
+# you can add files in here too
+```
+https://raw.githubusercontent.com/ros2/rviz/galactic/rviz_rendering/ogre_media/materials/glsl150/
+```
+
 # Environment Variable
 ```
 export ISAAC_ROS_NVBLOX_PLUGIN_FORCE_FALLBACK_MATERIAL=1
