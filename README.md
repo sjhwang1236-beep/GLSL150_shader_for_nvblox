@@ -3,21 +3,21 @@
 - Isaac ROS NVBlox visualization in RViz was failing due to missing GLSL 150 geometry shaders.
 - The error was related to box.geom not being found.
 
-# What We Created
+## What We Created
 - box.geom, Geometry shader that generates axis-aligned boxes (the file causing the original error)
 - billboard.geom, Geometry shader for billboard rendering
 - pass_pos_color.vert, Vertex shader that passes position and color data
 - glsl150.program, OGRE program definitions that register all the shaders.
 
-# Installation Location
+## Installation Location
 - Place 4 files at `/opt/ros/humble/share/rviz_rendering/ogre_media/materials/glsl150` in the container.
 
-# you can add files in here too
+## you can add files in here too
 ```
 https://raw.githubusercontent.com/ros2/rviz/galactic/rviz_rendering/ogre_media/materials/glsl150/
 ```
 
-# Environment Variable
+## Environment Variable
 ```
 export ISAAC_ROS_NVBLOX_PLUGIN_FORCE_FALLBACK_MATERIAL=1
 ```
@@ -25,12 +25,37 @@ export ISAAC_ROS_NVBLOX_PLUGIN_FORCE_FALLBACK_MATERIAL=1
 # Problem 2
 - When nvblox output is not showed in rviz2, follow this solution.
 
-# Install nvblox_rviz_plugin
+## Install nvblox_rviz_plugin
 ```
 git clone https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git
 colcon build --packages-up-to nvblox_rviz_plugin 2>&1
 source /workspaces/isaac_ros-dev/install/setup.bash
 ```
+
+# Problem 3 which is related to Problem 1
+- Geometry Shader Warning
+- When shader files are placed in Problem 1 but is not visulized the result, follow the steps.
+
+## Create the missing scripts150 directory
+```
+sudo mkdir -p /opt/ros/humble/share/rviz_rendering/ogre_media/materials/scripts150
+echo "# Empty placeholder for GLSL 1.50 material scripts" | sudo tee /opt/ros/humble/share/rviz_rendering/ogre_media/materials/scripts150/README
+```
+
+## Modify the nvblox_rviz_plugin to use GLSL version
+- download `nvblox_plugin_visual.cpp` and place it at
+```
+/workspaces/isaac_ros-dev/src/isaac_ros_nvblox/nvblox_rviz_plugin/src
+```
+
+# Build
+```
+cd /workspaces/isaac_ros-dev
+source /opt/ros/humble/setup.bash
+colcon build --packages-select nvblox_rviz_plugin
+source install/setup.bash
+```
+
 
 # Nvblox worked well
 ```
