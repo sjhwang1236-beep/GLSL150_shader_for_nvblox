@@ -17,16 +17,13 @@
 https://raw.githubusercontent.com/ros2/rviz/galactic/rviz_rendering/ogre_media/materials/glsl150/
 ```
 
-## Environment Variable
-```
-export ISAAC_ROS_NVBLOX_PLUGIN_FORCE_FALLBACK_MATERIAL=1
-```
-
 # Problem 2
 - When nvblox output is not showed in rviz2, follow this solution.
 
 ## Install nvblox_rviz_plugin
 ```
+cd /workspaces/isaac_ros-dev/src
+rm -rf isaac_ros_nvblox
 git clone https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git
 colcon build --packages-up-to nvblox_rviz_plugin 2>&1
 source /workspaces/isaac_ros-dev/install/setup.bash
